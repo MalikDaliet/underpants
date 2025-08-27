@@ -5,7 +5,7 @@
 
 var _ = {};
 
-
+//this is a comment
 /**
 * START OF OUR LIBRARY!
 * Implement each function below its instructions
