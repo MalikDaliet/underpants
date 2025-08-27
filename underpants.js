@@ -20,7 +20,9 @@ var _ = {};
 *   _.identity(5) === 5
 *   _.identity({a: "b"}) === {a: "b"}
 */
-
+_.identify =function(val){
+    return val;
+}
 
 /** _.typeOf
 * Arguments:
@@ -41,8 +43,10 @@ var _ = {};
 * _.typeOf("javascript") -> "string"
 * _.typeOf([1,2,3]) -> "array"
 */
-
-
+_.typeOf =  (val) => typeOf(val);
+console.log(_.typeOf(5));
+console.log(_.typeOf("hello"));
+console.log(_.typeOf([1,2,3]));
 /** _.first
 * Arguments:
 *   1) An array
