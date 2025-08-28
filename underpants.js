@@ -20,7 +20,7 @@ var _ = {};
 *   _.identity(5) === 5
 *   _.identity({a: "b"}) === {a: "b"}
 */
-_.identify =function(val){
+_.identity = function (val) {
     return val;
 }
 
@@ -43,10 +43,15 @@ _.identify =function(val){
 * _.typeOf("javascript") -> "string"
 * _.typeOf([1,2,3]) -> "array"
 */
-_.typeOf =  (val) => typeOf(val);
-console.log(_.typeOf(5));
-console.log(_.typeOf("hello"));
-console.log(_.typeOf([1,2,3]));
+//_.typeOf =  (val) => typeof(val);
+_.typeOf = (val) => {
+    return val === null ? "null" :
+        Array.isArray(val) ? "array" :
+            typeof val;
+}
+// console.log(_.typeOf(5));
+// console.log(_.typeOf("hello"));
+// console.log(_.typeOf([1,2,3]));
 /** _.first
 * Arguments:
 *   1) An array
@@ -64,7 +69,15 @@ console.log(_.typeOf([1,2,3]));
 *   _.first(["a", "b", "c"], 1) -> "a"
 *   _.first(["a", "b", "c"], 2) -> ["a", "b"]
 */
-
+_.first = (arr, num) =>
+    !Array.isArray(arr) ? [] :
+        num === undefined || typeof num !== "number" ? arr[0] :
+            num < 0 ? [] :
+                arr.slice(0, num);
+// console.log( _.first("ponies", 1));
+// console.log(_.first(["a", "b", "c"], "ponies"))
+// console.log(_.first(["a", "b", "c"], 1))
+// console.log( _.first(["a", "b", "c"], 4))
 
 /** _.last
 * Arguments:
@@ -84,7 +97,17 @@ console.log(_.typeOf([1,2,3]));
 *   _.last(["a", "b", "c"], 2) -> ["b", "c"]
 */
 
+_.last = (arr, num) =>
+    !Array.isArray(arr) ? [] : //first check: if arr is an array
+        num === undefined || typeof num !== "number" ? arr[arr.length - 1] : //second check
+            num < 0 ? [] : //third check
+                num > arr.length ? arr :
+                    arr.slice(num - 1, arr.length);
 
+// console.log(_.last("ponies", 1));
+// console.log(_.last(["a", "b", "c"], "ponies"))
+// console.log(_.last(["a", "b", "c"], 1))
+// console.log(_.last(["a", "b", "c"], 2))
 /** _.indexOf
 * Arguments:
 *   1) An array
@@ -100,7 +123,14 @@ console.log(_.typeOf([1,2,3]));
 *   _.indexOf(["a","b","c"], "c") -> 2
 *   _.indexOf(["a","b","c"], "d") -> -1
 */
-
+_.indexOf = (arr, value) => {
+    for (var i = 0; i < arr.length; i++) {
+        if (arr[i] === value) {
+            return i
+        }
+        return -1
+    }
+}
 
 /** _.contains
 * Arguments:
@@ -309,8 +339,8 @@ console.log(_.typeOf([1,2,3]));
 // DON'T REMOVE THIS CODE ////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
 
-if((typeof process !== 'undefined') &&
-   (typeof process.versions.node !== 'undefined')) {
+if ((typeof process !== 'undefined') &&
+    (typeof process.versions.node !== 'undefined')) {
     // here, export any references you need for tests //
     module.exports = _;
 }
