@@ -124,12 +124,21 @@ _.last = (arr, num) =>
 *   _.indexOf(["a","b","c"], "d") -> -1
 */
 _.indexOf = (arr, value) => {
+    var isFound = false;
+    var ind = [];
+if(Array.isArray(arr)){
+
     for (var i = 0; i < arr.length; i++) {
         if (arr[i] === value) {
-            return i
+            ind.push(i);
+            isFound = true;
         }
-        return -1
     }
+
+    if(isFound){return ind[0]}else {return -1};
+
+}else {return -1};
+
 }
 
 /** _.contains
@@ -146,7 +155,27 @@ _.indexOf = (arr, value) => {
 * Examples:
 *   _.contains([1,"two", 3.14], "two") -> true
 */
+_.contains =  (arr, val) => {
+    var isFound = false;
+if(Array.isArray(arr)){
 
+    for (var i = 0; i < arr.length; i++) {
+        if (arr[i] === val) {
+            isFound = true;
+        }
+    }
+
+    return isFound === true  ? true:
+    false;
+
+}
+
+
+
+
+
+
+}
 
 /** _.each
 * Arguments:
@@ -164,6 +193,27 @@ _.indexOf = (arr, value) => {
 *      -> should log "a" "b" "c" to the console
 */
 
+_.each = (coll,func) =>  {
+
+if(Array.isArray(coll)){
+     for (var i = 0; i < coll.length; i++) {
+        func(coll[i],i,coll)
+     }
+}else{
+    for( var element in coll){
+        func(coll[element],element,coll);
+    }
+}
+
+}
+
+
+//it runs the function you give it while passing the element, index/elemment, and  collection
+//no inherent returns
+// _.each(Any array, a function with possible parameters(  the element, index/elemment, and  collection) )
+
+
+
 
 /** _.unique
 * Arguments:
@@ -174,6 +224,16 @@ _.indexOf = (arr, value) => {
 * Examples:
 *   _.unique([1,2,2,4,5,6,5,2]) -> [1,2,4,5,6]
 */
+_.unique = (arr) => {
+    var holder = [];
+    
+
+
+    for (var i = 0; i < arr.length; i++) {
+        if(!_.contains(holder,arr[i])){holder.push(arr[i])}
+    }
+    return holder;
+}
 
 
 /** _.filter
@@ -193,6 +253,24 @@ _.indexOf = (arr, value) => {
 */
 
 
+
+
+_.filter = (arr, func) => {
+// holds variable to return
+    var truths = [];
+    var holders = [];
+    //go through  each element  
+    _.each(arr,(...a)  =>  {
+        truths.push(func(...a))
+    })
+ for(var i = 0; i <arr.length;i++){
+         if(truths[i]){holders.push(arr[i])}   
+        }
+    return holders;
+}
+
+console.log(_.filter([1,2,3,4,5], (x) =>  { return x>2}))
+
 /** _.reject
 * Arguments:
 *   1) An array
@@ -205,6 +283,21 @@ _.indexOf = (arr, value) => {
 * Examples:
 *   _.reject([1,2,3,4,5], function(e){return e%2 === 0}) -> [1,3,5]
 */
+
+_.reject= (arr, func) => {
+// holds variable to return
+    var truths = [];
+    var holders = [];
+    //go through  each element  
+    _.each(arr,(...a)  =>  {
+        truths.push(func(...a))
+    })
+ for(var i = 0; i <arr.length;i++){
+         if(!truths[i]){holders.push(arr[i])}   
+        }
+    return holders;
+}
+
 
 
 /** _.partition
@@ -226,6 +319,27 @@ _.indexOf = (arr, value) => {
 }
 */
 
+_.partition= (arr, func) => {
+// holds variable to return
+    var truths = [];
+    var tHolders = [];
+    var fHolders  = [];
+    //go through  each element  
+    _.each(arr,(...a)  =>  {
+        truths.push(func(...a))
+    })
+ for(var i = 0; i <arr.length;i++){
+         if(!truths[i]){fHolders.push(arr[i])}   
+        }
+
+ for(var i = 0; i <arr.length;i++){
+         if(truths[i]){tHolders.push(arr[i])}   
+        }
+
+    return [tHolders,fHolders];
+}
+
+
 
 /** _.map
 * Arguments:
@@ -242,7 +356,13 @@ _.indexOf = (arr, value) => {
 * Examples:
 *   _.map([1,2,3,4], function(e){return e * 2}) -> [2,4,6,8]
 */
-
+_.map = (coll, func) => {
+var result = [];
+_.each(coll,(...a)  =>  {
+        result.push(func(...a))
+    })
+    return result;
+}
 
 /** _.pluck
 * Arguments:
