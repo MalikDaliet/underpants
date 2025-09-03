@@ -419,8 +419,17 @@ _.pluck = (ao, prop) => {
 _.every = (coll, func) => {
     // if (coll === A)
     _.map(coll, func)
+    let holder= 0
     for (let i = 0; i < coll.length; i++){
-        
+if (coll.i === false ){
+    holder++
+}
+    }
+    if(holder < 1){
+        return true
+    }
+    else {
+        return false
     }
 }
 
