@@ -126,18 +126,18 @@ _.last = (arr, num) =>
 _.indexOf = (arr, value) => {
     var isFound = false;
     var ind = [];
-if(Array.isArray(arr)){
+    if (Array.isArray(arr)) {
 
-    for (var i = 0; i < arr.length; i++) {
-        if (arr[i] === value) {
-            ind.push(i);
-            isFound = true;
+        for (var i = 0; i < arr.length; i++) {
+            if (arr[i] === value) {
+                ind.push(i);
+                isFound = true;
+            }
         }
-    }
 
-    if(isFound){return ind[0]}else {return -1};
+        if (isFound) { return ind[0] } else { return -1 };
 
-}else {return -1};
+    } else { return -1 };
 
 }
 
@@ -155,20 +155,20 @@ if(Array.isArray(arr)){
 * Examples:
 *   _.contains([1,"two", 3.14], "two") -> true
 */
-_.contains =  (arr, val) => {
+_.contains = (arr, val) => {
     var isFound = false;
-if(Array.isArray(arr)){
+    if (Array.isArray(arr)) {
 
-    for (var i = 0; i < arr.length; i++) {
-        if (arr[i] === val) {
-            isFound = true;
+        for (var i = 0; i < arr.length; i++) {
+            if (arr[i] === val) {
+                isFound = true;
+            }
         }
+
+        return isFound === true ? true :
+            false;
+
     }
-
-    return isFound === true  ? true:
-    false;
-
-}
 
 
 
@@ -193,17 +193,17 @@ if(Array.isArray(arr)){
 *      -> should log "a" "b" "c" to the console
 */
 
-_.each = (coll,func) =>  {
+_.each = (coll, func) => {
 
-if(Array.isArray(coll)){
-     for (var i = 0; i < coll.length; i++) {
-        func(coll[i],i,coll)
-     }
-}else{
-    for( var element in coll){
-        func(coll[element],element,coll);
+    if (Array.isArray(coll)) {
+        for (var i = 0; i < coll.length; i++) {
+            func(coll[i], i, coll)
+        }
+    } else {
+        for (var element in coll) {
+            func(coll[element], element, coll);
+        }
     }
-}
 
 }
 
@@ -226,11 +226,11 @@ if(Array.isArray(coll)){
 */
 _.unique = (arr) => {
     var holder = [];
-    
+
 
 
     for (var i = 0; i < arr.length; i++) {
-        if(!_.contains(holder,arr[i])){holder.push(arr[i])}
+        if (!_.contains(holder, arr[i])) { holder.push(arr[i]) }
     }
     return holder;
 }
@@ -256,20 +256,20 @@ _.unique = (arr) => {
 
 
 _.filter = (arr, func) => {
-// holds variable to return
+    // holds variable to return
     var truths = [];
     var holders = [];
     //go through  each element  
-    _.each(arr,(...a)  =>  {
+    _.each(arr, (...a) => {
         truths.push(func(...a))
     })
- for(var i = 0; i <arr.length;i++){
-         if(truths[i]){holders.push(arr[i])}   
-        }
+    for (var i = 0; i < arr.length; i++) {
+        if (truths[i]) { holders.push(arr[i]) }
+    }
     return holders;
 }
 
-console.log(_.filter([1,2,3,4,5], (x) =>  { return x>2}))
+console.log(_.filter([1, 2, 3, 4, 5], (x) => { return x > 2 }))
 
 /** _.reject
 * Arguments:
@@ -284,17 +284,17 @@ console.log(_.filter([1,2,3,4,5], (x) =>  { return x>2}))
 *   _.reject([1,2,3,4,5], function(e){return e%2 === 0}) -> [1,3,5]
 */
 
-_.reject= (arr, func) => {
-// holds variable to return
+_.reject = (arr, func) => {
+    // holds variable to return
     var truths = [];
     var holders = [];
     //go through  each element  
-    _.each(arr,(...a)  =>  {
+    _.each(arr, (...a) => {
         truths.push(func(...a))
     })
- for(var i = 0; i <arr.length;i++){
-         if(!truths[i]){holders.push(arr[i])}   
-        }
+    for (var i = 0; i < arr.length; i++) {
+        if (!truths[i]) { holders.push(arr[i]) }
+    }
     return holders;
 }
 
@@ -319,24 +319,24 @@ _.reject= (arr, func) => {
 }
 */
 
-_.partition= (arr, func) => {
-// holds variable to return
+_.partition = (arr, func) => {
+    // holds variable to return
     var truths = [];
     var tHolders = [];
-    var fHolders  = [];
+    var fHolders = [];
     //go through  each element  
-    _.each(arr,(...a)  =>  {
+    _.each(arr, (...a) => {
         truths.push(func(...a))
     })
- for(var i = 0; i <arr.length;i++){
-         if(!truths[i]){fHolders.push(arr[i])}   
-        }
+    for (var i = 0; i < arr.length; i++) {
+        if (!truths[i]) { fHolders.push(arr[i]) }
+    }
 
- for(var i = 0; i <arr.length;i++){
-         if(truths[i]){tHolders.push(arr[i])}   
-        }
+    for (var i = 0; i < arr.length; i++) {
+        if (truths[i]) { tHolders.push(arr[i]) }
+    }
 
-    return [tHolders,fHolders];
+    return [tHolders, fHolders];
 }
 
 
@@ -357,11 +357,17 @@ _.partition= (arr, func) => {
 *   _.map([1,2,3,4], function(e){return e * 2}) -> [2,4,6,8]
 */
 _.map = (coll, func) => {
-var result = [];
-_.each(coll,(...a)  =>  {
+    var result = [];
+    _.each(coll, (...a) => {
         result.push(func(...a))
     })
     return result;
+    // var result = [];
+    // _.each(coll, (coll[i], i, coll) => {
+    //     result.push(func(coll[i], i, coll))
+    // })
+    // return result;
+
 }
 
 /** _.pluck
@@ -375,6 +381,20 @@ _.each(coll,(...a)  =>  {
 *   _.pluck([{a: "one"}, {a: "two"}], "a") -> ["one", "two"]
 */
 
+_.pluck = (ao, prop) => {
+    //console.log({ ao, prop })
+    let holder = _.map(ao, (o) => {
+        // console.log([e])
+        return (o[prop]) // gives us access to the the objects 
+    })
+
+    //    for(let i= 0; i < prop.length; i++){
+    //     return prop[i]
+    //    }
+    console.log(holder)
+    return holder // returns the array stored in .map
+
+}
 
 /** _.every
 * Arguments:
