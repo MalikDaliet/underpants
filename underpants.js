@@ -416,7 +416,13 @@ _.pluck = (ao, prop) => {
 *   _.every([2,4,6], function(e){return e % 2 === 0}) -> true
 *   _.every([1,2,3], function(e){return e % 2 === 0}) -> false
 */
-
+_.every = (coll, func) => {
+    // if (coll === A)
+    _.map(coll, func)
+    for (let i = 0; i < coll.length; i++){
+        
+    }
+}
 
 /** _.some
 * Arguments:
