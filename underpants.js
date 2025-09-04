@@ -269,7 +269,7 @@ _.filter = (arr, func) => {
     return holders;
 }
 
-console.log(_.filter([1, 2, 3, 4, 5], (x) => { return x > 2 }))
+//console.log(_.filter([1, 2, 3, 4, 5], (x) => { return x > 2 }))
 
 /** _.reject
 * Arguments:
@@ -391,7 +391,7 @@ _.pluck = (ao, prop) => {
     //    for(let i= 0; i < prop.length; i++){
     //     return prop[i]
     //    }
-    console.log(holder)
+    //console.log(holder)
     return holder // returns the array stored in .map
 
 }
@@ -417,22 +417,25 @@ _.pluck = (ao, prop) => {
 *   _.every([1,2,3], function(e){return e % 2 === 0}) -> false
 */
 _.every = (coll, func) => {
-    // if (coll === A)
-    _.map(coll, func)
-    let holder= 0
-    for (let i = 0; i < coll.length; i++){
-if (coll.i === false ){
-    holder++
-}
+    // default function: identity (checks truthiness of elements)
+    func = (typeof func === "function") ? func : (val => val);
+
+    // map results of func across coll
+    const results = _.map(coll, (...a) => func(...a));
+
+    // check if all results are truthy
+    for (let i = 0; i < results.length; i++) {
+        if (!results[i]) {
+            return false;
+        }
     }
-    if(holder < 1){
-        return true
-    }
-    else {
-        return false
-    }
+    return true;
 }
 
+
+
+
+//console.log(_.every([1, 2, 3], function (e) { return e % 2 === 0 }))
 /** _.some
 * Arguments:
 *   1) A collection
@@ -454,7 +457,18 @@ if (coll.i === false ){
 *   _.some([1,2,3], function(e){return e % 2 === 0}) -> true
 */
 
+_.some = (coll, func) => {
+func = (typeof func === "function") ? func : (val => val);
+const results = _.map(coll, (...a) => func(...a));
 
+    // check if all results are truthy
+    for (let i = 0; i < results.length; i++) {
+        if (results[i]) {
+            return true;
+        }
+    }
+    return false;
+}
 /** _.reduce
 * Arguments:
 *   1) An array
@@ -474,7 +488,23 @@ if (coll.i === false ){
 *   _.reduce([1,2,3], function(previousSum, currentValue, currentIndex){ return previousSum + currentValue }, 0) -> 6
 */
 
+_.reduce = (arr ,func, seed) =>{
+    var result;
+    var startIndex;
+    if(seed !== undefined){
+        result = seed;
+        startIndex = 0
+    }
+    else{
+result = arr[0];
+startIndex = 1
+    }
 
+for(let i = startIndex; i < arr.length; i++){
+    result = func(result, arr[i], i)
+}
+return result
+}
 /** _.extend
 * Arguments:
 *   1) An Object
@@ -493,7 +523,14 @@ if (coll.i === false ){
 //////////////////////////////////////////////////////////////////////
 // DON'T REMOVE THIS CODE ////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
-
+_.extend = (obj1,...objs) => {
+_.each(objs, o =>{
+for(let key in o){
+    obj1[key] = o[key]
+}
+})
+return obj1
+}
 if ((typeof process !== 'undefined') &&
     (typeof process.versions.node !== 'undefined')) {
     // here, export any references you need for tests //
