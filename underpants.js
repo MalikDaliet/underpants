@@ -519,7 +519,7 @@ return result
 *   _.extend(data, {b:"two"}); -> data now equals {a:"one",b:"two"}
 *   _.extend(data, {a:"two"}); -> data now equals {a:"two"}
 */
-_.extend = (obj1,...objs) => {
+_.extend = (obj1,...objs) => {      // ..makes paramiters/ arguments arrays
 _.each(objs, o =>{
 for(let key in o){
     obj1[key] = o[key]
